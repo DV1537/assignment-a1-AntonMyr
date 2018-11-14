@@ -10,25 +10,30 @@
  */
 int main(int argc, const char * argv[])
 {
-    
-  //Comment
-    int a = 0;
-    int sum = 0;
-    
-    std::ifstream myReadFile;
-    
-    myReadFile.open(argv[1]);
-    
-    while (myReadFile >> a)
-    {
-        sum += a;
-    }
-    myReadFile.close();
-    
-    
-    
-    std::cout << sum << "\n";
-    
-    return 0;
+
+
+  /**
+    * - should store the all the numbers in an dynamic array
+    * - should calculate the average
+    * - Should display all the values above the average
+    */
+  int a = 0;
+  int sum = 0;
+
+  std::ifstream myReadFile;
+
+  myReadFile.open(argv[1]);
+
+  while (myReadFile >> a) {
+      sum += a;
+  }
+
+  myReadFile.close();
+
+
+
+  std::cout << sum << "\n";
+
+  return 0;
 }
 
