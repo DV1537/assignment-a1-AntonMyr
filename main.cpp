@@ -8,46 +8,60 @@
  * @param  argv [description]
  * @return      [description]
  */
-int main(int argc, const char * argv[])
-{
-
-
-  /**
-    * - should store all the numbers in an dynamic array
-    * - should calculate the average
-    * - Should display all the values above the average
-    */
-  int a = 0;
+int main(int argc, const char * argv[]) {
+  int currentNumber = 0;
   int sum = 0;
-  int charCounter = 0;
+  int intCounter = 0;
+  int iteration = 0;
+
+  int currentChar;
+  bool isOk;
+
+  int* numbersArray;
+  int i;
 
   std::ifstream myReadFile;
 
   myReadFile.open(argv[1]);
 
-  while (myReadFile >> a) {
-    charCounter += 1;
+  while(iteration < 3) {
+    if(iteration > 1) {
+
+      myReadFile.clear();
+      myReadFile.seekg(0, std::ios::beg);
+
+      i = 0;
+
+      numbersArray = new int[intCounter];
+    }
+
+    while (myReadFile.tellg() != -1) {
+      currentChar = myReadFile.peek();
+      isOk = (currentChar == 45 || isdigit(currentChar));
+
+      if(!myReadFile.rdstate() && isOk && iteration < 2) {
+        myReadFile >> currentNumber;
+        intCounter += 1;
+      }
+
+      else if(!myReadFile.rdstate() && isOk) {
+        myReadFile >> numbersArray[i];
+        sum += numbersArray[i];
+        i++;
+      }
+
+      myReadFile.clear();
+      myReadFile.ignore();
+    }
+
+    iteration++;
   }
 
-  /**
-    * Clears myReadFile from eof bit
-    */
-  myReadFile.clear();
-  myReadFile.seekg(0, std::ios::beg);
-  a = 0;
+  sum /= intCounter;
 
-  int* numbersArray = new int[charCounter];
-  for(int i = 0; i < charCounter; i++) {
-    myReadFile >> a;
-    numbersArray[i] = a;
-    sum += a;
-  }
-
-  sum /= charCounter;
-
-  for(int i = 0; i < charCounter; i++) {
+  for(int i = 0; i < intCounter; i++) {
     if(numbersArray[i] > sum) {
-      std::cout << numbersArray[i] << std::endl;
+      std::cout << numbersArray[i] << " ";
     }
   }
 
@@ -57,4 +71,3 @@ int main(int argc, const char * argv[])
 
   return 0;
 }
-
